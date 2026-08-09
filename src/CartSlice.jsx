@@ -7,8 +7,14 @@ export const CartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-      // Add the plant object to the cart
-      state.items.push(action.payload);
+      // Add the plant object to the cart or increment quantity if it already exists
+      const { name, image, cost, description } = action.payload;
+      const existingItem = state.items.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        state.items.push({ name, image, cost, description, quantity: 1 });
+      }
     },
 
     removeItem: (state, action) => {
@@ -20,7 +26,6 @@ export const CartSlice = createSlice({
     updateQuantity: (state, action) => {
       // Update quantity of a plant
       const { name, amount } = action.payload;
-
       const item = state.items.find(item => item.name === name);
 
       if (item) {
