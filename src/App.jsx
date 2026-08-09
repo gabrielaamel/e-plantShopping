@@ -3,6 +3,9 @@ import React, { useState } from 'react';
 import ProductList from './ProductList';
 import './App.css';
 import AboutUs from './AboutUs';
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 
 function App() {
   
@@ -17,6 +20,7 @@ function App() {
   };
 
   return (
+    <Provider store={store}>
     <div className="app-container">
       <div className={`landing-page ${showProductList ? 'fade-out' : ''}`}>
         <div className="background-image"></div>
@@ -40,6 +44,7 @@ function App() {
         <ProductList onHomeClick={handleHomeClick}/>
       </div>
     </div>
+    </Provider>
   );
 }
 
